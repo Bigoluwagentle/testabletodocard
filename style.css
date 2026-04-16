@@ -1,18 +1,16 @@
-/* ── Reset ── */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* ── Body & page layout ── */
 body {
   background-color: #f0efeb;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 1rem;
+  padding: 2rem 1rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   color: #1c1c1c;
@@ -21,94 +19,138 @@ body {
 
 main {
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
 }
 
-/* ── Card ── */
-article.todo-card {
+article#todo-card {
   background-color: #ffffff;
   border: 1px solid #dddbd6;
   border-radius: 16px;
-  padding: 1.25rem 1.5rem;
+  overflow: hidden;
 }
 
-/* ── Card header ── */
+article#todo-card.is-done {
+  opacity: 0.8;
+}
+
+div#view-mode,
+div#edit-form {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+div#priority-indicator {
+  height: 6px;
+  width: 100%;
+  margin-bottom: 1.1rem;
+}
+
+div#priority-indicator.high   { background-color: #dc2626; }
+div#priority-indicator.medium { background-color: #f59e0b; }
+div#priority-indicator.low    { background-color: #16a34a; }
+
 div.card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
-div.card-title-block {
+div#title-block {
   flex: 1;
   min-width: 0;
 }
 
-div.card-title-block h2 {
+div#title-block h2#todo-title {
   font-size: 1.05rem;
   font-weight: 600;
   line-height: 1.4;
-  margin-bottom: 5px;
   color: #1c1c1c;
   word-break: break-word;
-  transition: text-decoration 0.2s, color 0.2s;
+  transition: color 0.2s;
 }
 
-div.card-title-block h2.done {
+div#title-block h2#todo-title.done {
   text-decoration: line-through;
-  color: #888;
+  color: #9ca3af;
 }
 
-div.card-title-block p {
-  font-size: 0.875rem;
-  color: #6b6b6b;
-  line-height: 1.6;
-  word-break: break-word;
-}
-
-/* ── Priority badge ── */
-span.priority-badge {
+span#priority-badge {
   flex-shrink: 0;
   display: inline-block;
   padding: 3px 11px;
   border-radius: 999px;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   border: 1px solid transparent;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
-span.priority-badge.high {
-  background-color: #fdecea;
-  color: #991b1b;
-  border-color: #fca5a5;
+span#priority-badge.high   { background-color: #fdecea; color: #991b1b; border-color: #fca5a5; }
+span#priority-badge.medium { background-color: #fef3c7; color: #92400e; border-color: #fcd34d; }
+span#priority-badge.low    { background-color: #dcfce7; color: #166534; border-color: #86efac; }
+
+div#description-wrap {
+  margin-bottom: 14px;
 }
 
-span.priority-badge.medium {
-  background-color: #fef3c7;
-  color: #92400e;
-  border-color: #fcd34d;
+div#collapsible-section {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
 
-span.priority-badge.low {
-  background-color: #dcfce7;
-  color: #166534;
-  border-color: #86efac;
+div#collapsible-section.collapsed {
+  max-height: 46px;
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
 }
 
-/* ── Card meta section ── */
+div#collapsible-section.expanded {
+  max-height: 1000px;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+div#collapsible-section p#todo-description {
+  font-size: 0.875rem;
+  color: #6b6b6b;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+div#collapsible-section.done-mode p#todo-description {
+  color: #b0afac;
+}
+
+button#expand-toggle {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 3px 0;
+  margin-top: 4px;
+  font-family: inherit;
+  text-decoration: underline;
+}
+
+button#expand-toggle:hover {
+  color: #1d4ed8;
+}
+
 div.card-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 16px;
   background-color: #f8f7f5;
-  border: 1px solid #dddbd6;
+  border: 1px solid #e5e3de;
   border-radius: 10px;
   padding: 10px 14px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 div.meta-row {
@@ -117,16 +159,15 @@ div.meta-row {
   gap: 5px;
 }
 
-div.meta-row time,
-div.meta-row span {
+div.meta-row time {
   font-size: 0.8125rem;
   color: #6b6b6b;
 }
 
 span#time-remaining {
+  font-size: 0.8125rem;
   font-weight: 600;
   color: #1c1c1c;
-  font-size: 0.8125rem;
 }
 
 span#time-remaining.overdue {
@@ -139,10 +180,34 @@ svg.meta-icon {
   flex-shrink: 0;
 }
 
-/* ── Status badge ── */
-span.status-badge {
+div#overdue-indicator {
+  background-color: #fdecea;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #991b1b;
+  margin-bottom: 10px;
+}
+
+div.status-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+div.status-row label {
+  font-size: 0.8rem;
+  color: #6b6b6b;
+  font-weight: 500;
+}
+
+span#todo-status {
   display: inline-block;
-  padding: 3px 10px;
+  padding: 3px 11px;
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -150,25 +215,27 @@ span.status-badge {
   white-space: nowrap;
 }
 
-span.status-badge.pending {
-  background-color: #f3f4f6;
-  color: #374151;
-  border-color: #d1d5db;
+span#todo-status.pending     { background-color: #f3f4f6; color: #374151; border-color: #d1d5db; }
+span#todo-status.in-progress { background-color: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+span#todo-status.done        { background-color: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
+select#status-control {
+  padding: 5px 9px;
+  border: 1px solid #dddbd6;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  color: #1c1c1c;
+  background-color: #ffffff;
+  cursor: pointer;
 }
 
-span.status-badge.in-progress {
-  background-color: #eff6ff;
-  color: #1e40af;
-  border-color: #bfdbfe;
+select#status-control:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-span.status-badge.done {
-  background-color: #f0fdf4;
-  color: #15803d;
-  border-color: #bbf7d0;
-}
-
-/* ── Checkbox toggle ── */
 div.card-toggle {
   margin-bottom: 12px;
 }
@@ -191,8 +258,7 @@ div.card-toggle label input[type="checkbox"] {
   flex-shrink: 0;
 }
 
-/* ── Tags list ── */
-ul.tags-list {
+ul#tags-list {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -200,11 +266,11 @@ ul.tags-list {
   margin-bottom: 14px;
 }
 
-ul.tags-list li {
+ul#tags-list li {
   display: flex;
 }
 
-ul.tags-list li span.tag {
+ul#tags-list li span.tag {
   display: inline-block;
   padding: 3px 10px;
   border-radius: 999px;
@@ -215,16 +281,15 @@ ul.tags-list li span.tag {
   color: #6b6b6b;
 }
 
-/* ── Card actions ── */
 div.card-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   padding-top: 12px;
-  border-top: 1px solid #dddbd6;
+  border-top: 1px solid #e5e3de;
 }
 
-div.card-actions button.btn {
+button.btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -240,21 +305,46 @@ div.card-actions button.btn {
   transition: background-color 0.15s, transform 0.1s;
 }
 
-div.card-actions button.btn:hover {
+button.btn:hover {
   background-color: #f0efeb;
 }
 
-div.card-actions button.btn:active {
+button.btn:active {
   transform: scale(0.97);
 }
 
-div.card-actions button.btn.delete-btn {
+button.edit-btn {
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+button.edit-btn:hover {
+  background-color: #eff6ff;
+}
+
+button.delete-btn {
   color: #991b1b;
   border-color: #fca5a5;
 }
 
-div.card-actions button.btn.delete-btn:hover {
+button.delete-btn:hover {
   background-color: #fdecea;
+}
+
+button.save-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  font-weight: 600;
+}
+
+button.save-btn:hover {
+  background-color: #1d4ed8;
+}
+
+button.cancel-btn {
+  color: #6b6b6b;
+  border-color: #dddbd6;
 }
 
 svg.btn-icon {
@@ -263,29 +353,81 @@ svg.btn-icon {
   flex-shrink: 0;
 }
 
-/* ── Focus styles (accessibility) ── */
+div#edit-form h3#edit-form-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin-bottom: 1rem;
+  padding-top: 1.25rem;
+}
+
+div.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 0.9rem;
+}
+
+div.form-group label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b6b6b;
+}
+
+div.form-group input[type="text"],
+div.form-group input[type="date"],
+div.form-group textarea,
+div.form-group select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #dddbd6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #1c1c1c;
+  background-color: #ffffff;
+  transition: border-color 0.15s;
+  resize: vertical;
+}
+
+div.form-group input[type="text"]:focus,
+div.form-group input[type="date"]:focus,
+div.form-group textarea:focus,
+div.form-group select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+div.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+div.edit-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e3de;
+  margin-top: 4px;
+}
+
 *:focus-visible {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* ── Responsive: tablet and up ── */
-@media (min-width: 521px) {
-  article.todo-card {
-    padding: 1.5rem 1.75rem;
-  }
-}
-
-/* ── Responsive: mobile ── */
 @media (max-width: 520px) {
   body {
     align-items: flex-start;
-    padding: 1.25rem 0.875rem 2rem;
+    padding: 1.25rem 0.875rem 2.5rem;
   }
 
-  article.todo-card {
-    padding: 1rem 1.1rem;
+  div#view-mode,
+  div#edit-form {
+    padding: 0 1rem 1.1rem 1rem;
   }
 
   div.card-meta {
@@ -294,28 +436,45 @@ svg.btn-icon {
     gap: 6px;
   }
 
-  div.card-actions button.btn {
-    padding: 7px 12px;
-    font-size: 0.8rem;
-  }
-}
-
-/* ── Responsive: very small screens ── */
-@media (max-width: 360px) {
-  body {
-    padding: 1rem 0.65rem 2rem;
+  div.status-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  div.card-title-block h2 {
-    font-size: 0.95rem;
+  div.form-row {
+    grid-template-columns: 1fr;
   }
 
-  div.card-actions {
+  div.card-actions,
+  div.edit-actions {
     flex-direction: column;
   }
 
-  div.card-actions button.btn {
+  div.card-actions button.btn,
+  div.edit-actions button.btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  body {
+    padding: 1rem 0.5rem 2rem;
+  }
+
+  div#title-block h2#todo-title {
+    font-size: 0.95rem;
+  }
+
+  span#priority-badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  div#view-mode,
+  div#edit-form {
+    padding: 0 1.75rem 1.75rem 1.75rem;
   }
 }
